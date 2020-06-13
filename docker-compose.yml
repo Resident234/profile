@@ -5,6 +5,7 @@ services:
     image: mysql:5.7
     volumes:
       - db_data:/var/lib/mysql
+      - project:/var/www/html
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: somewordpress
@@ -16,6 +17,8 @@ services:
     depends_on:
       - db
     image: wordpress:latest
+    volumes:
+      - project:/var/www/html
     ports:
       - "8000:80"
     restart: always
@@ -26,3 +29,9 @@ services:
       WORDPRESS_DB_NAME: wordpress
 volumes:
   db_data: {}
+  project:
+    driver: local
+    driver_opts:
+      o: bind
+      type: none
+      device: /e/s/Work_resident234/
